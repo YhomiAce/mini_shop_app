@@ -16,9 +16,10 @@ import Logo from "../assets/images/shopping.gif";
 import { useLoginMutation } from "../services/authApi";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
   const [visible, setVisible] = useState({
     showPassword: false,
     obsecureText: true,
@@ -45,6 +46,16 @@ const LoginScreen = () => {
     ]);
   };
 
+  // show success  alert
+  const showSuccessMessage = () => {
+    Alert.alert("Welldone", 'Login Successful', [
+      {
+        text: "Continue",
+        onPress: () => navigation.navigate("Home")
+      },
+    ]);
+  };
+
   // make api request to fake store login api
   const onSignIn = async (values, setSubmitting) => {
     await login(values);
@@ -57,6 +68,23 @@ const LoginScreen = () => {
       showErrorMessage(error.data);
     }
   }, [isError, error]);
+
+  const storeTokenInLocalStorage = async (token) => {
+    try {
+      await AsyncStorage.setItem('token', token);
+      showSuccessMessage();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if(isSuccess && data){
+      console.log(data.token);
+      storeTokenInLocalStorage(data.token);
+    }
+  },[data, isSuccess]);
+
   console.log({ data, isSuccess, error });
 
   return (
