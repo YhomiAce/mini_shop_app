@@ -1,7 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
-const CustomButton = ({ title, onPress, type, bgColor, fgColor }) => {
+const CustomButton = ({
+  title,
+  onPress,
+  type,
+  bgColor,
+  fgColor,
+  isLoading,
+}) => {
   return (
     <TouchableOpacity
       style={[
@@ -10,17 +22,21 @@ const CustomButton = ({ title, onPress, type, bgColor, fgColor }) => {
         bgColor ? { backgroundColor: bgColor } : {},
       ]}
       activeOpacity={0.5}
-      onPress={onPress}
+      onPress={!isLoading ? onPress : undefined}
     >
-      <Text
-        style={[
-          styles.text,
-          styles[`text_${type}`],
-          fgColor ? { color: fgColor } : {},
-        ]}
-      >
-        {title}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Text
+          style={[
+            styles.text,
+            styles[`text_${type}`],
+            fgColor ? { color: fgColor } : {},
+          ]}
+        >
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

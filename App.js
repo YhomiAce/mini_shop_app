@@ -1,10 +1,10 @@
 import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import NavigationComponent from "./navigation";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -26,18 +26,9 @@ export default function App() {
     return null;
   }
 
-  return <NavigationComponent />;
+  return (
+    <Provider store={store}>
+      <NavigationComponent />
+    </Provider>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    fontFamily: "bold",
-    fontSize: 20,
-  },
-});
