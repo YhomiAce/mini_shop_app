@@ -1,8 +1,10 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import NavigationComponent from "./navigation";
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -24,14 +26,7 @@ export default function App() {
     return null;
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.js to start working on your app!
-      </Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <NavigationComponent />;
 }
 
 const styles = StyleSheet.create({
