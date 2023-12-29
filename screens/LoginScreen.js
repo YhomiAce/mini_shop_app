@@ -17,9 +17,12 @@ import { useLoginMutation } from "../services/authApi";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { updateToken } from "../store/authSlice";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState({
     showPassword: false,
     obsecureText: true,
@@ -51,7 +54,7 @@ const LoginScreen = () => {
     Alert.alert("Welldone", 'Login Successful', [
       {
         text: "Continue",
-        onPress: () => navigation.navigate("Home")
+        onPress: () => navigation.navigate("Product")
       },
     ]);
   };
@@ -71,6 +74,7 @@ const LoginScreen = () => {
 
   const storeTokenInLocalStorage = async (token) => {
     try {
+      dispatch(updateToken(token));
       await AsyncStorage.setItem('token', token);
       showSuccessMessage();
     } catch (error) {
@@ -80,12 +84,10 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if(isSuccess && data){
-      console.log(data.token);
       storeTokenInLocalStorage(data.token);
     }
   },[data, isSuccess]);
 
-  console.log({ data, isSuccess, error });
 
   return (
     <SafeAreaView style={styles.root}>
