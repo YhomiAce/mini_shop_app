@@ -26,6 +26,7 @@ export function ProductDetails({ product }) {
               showRating={false}
               size={20}
               defaultRating={product.rating.rate}
+              isDisabled={true}
             />
           </View>
           <View className="flex-row justify-between mb-4">
