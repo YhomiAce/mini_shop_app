@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mini_store_app",
+    "name": "Mini Store",
     "slug": "mini_store_app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.yhomiace.mini_store_app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "de577a0c-0390-4ba9-9d99-0fb9bbfa2f9e"
+      }
     }
   }
 }
